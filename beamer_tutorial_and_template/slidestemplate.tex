@@ -1,0 +1,234 @@
+\documentclass[13pt, notes, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+%\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
+	% to amake a handout you can pout "handout" in the doc class, but things get kind of weird with the overlays  
+%\setbeameroption{show notes on second screen=right} % Both
+\setbeameroption{hide notes}
+
+\usepackage{verbatim}
+
+\usepackage[T1]{fontenc}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{booktabs}
+\usepackage{bbm}
+\usepackage{pifont}
+\usepackage{tikz}\usetikzlibrary{tikzmark,calc,,arrows,shapes,decorations.pathreplacing}
+\tikzset{every picture/.style={remember picture}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+   \setbeamertemplate{footline}
+   {
+     \leavevmode%
+     \hline
+     box{%
+       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+%         \insertframenumber  \hspace*{2ex} 
+       \end{beamercolorbox}}%
+     \vskip0pt%
+   }
+ }
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+
+\definecolor{blue}{RGB}{3,174,240}
+%\definecolor{red}{RGB}{213,94,0}
+\definecolor{red}{RGB}{204,121,167}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {red}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+\definecolor{lightperiwinkle}{RGB}{194,194, 219} %light periwinkle
+\definecolor{middlebluepurple}{RGB}{126, 126, 180} %middle blue purple
+\definecolor{paradisepink}{RGB}{224	, 82, 99} %paradisepink
+\definecolor{amaranth}{RGB}{221, 64, 83}
+
+
+%% Uncomment this if you want to change the background color to something else
+% \setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=lightperiwinkle}
+  \color{black} 
+  \begin{frame} 
+  		\huge \fontfamily{qag}\selectfont  \centering }{
+    \end{frame}
+}
+
+\usepackage{tgheros}
+
+% \setbeamercolor{frametitle}{fg=black}
+\setbeamerfont{title}{series = \bfseries\itshape, family = {\fontfamily{qag}}}
+\setbeamerfont{frametitle}{series = \itshape\bfseries, family = {\fontfamily{qag}}}
+%\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+
+% MY CUTE ITEMIZE STARS AND DIAMONDS:
+\setbeamertemplate{itemize item}{\small \ding{80}}
+\setbeamertemplate{itemize subitem}{\scriptsize \ding{70}}
+	% maybe you want something more standard:
+	 % \setbeamertemplate{itemize item}{\blacktriangleright}
+	 % \setbeamertemplate{itemize subitem}{\triangleright}
+	 		% helpful for lists: https://www.overleaf.com/learn/latex/Lists
+
+\setbeamercolor{itemize item}{fg = black}
+\setbeamercolor{enumerate item}{fg = black} 
+\setbeamercolor{itemize subitem}{fg = black}
+%\setbeamercolor{itemize subitem}{fg=black}
+%\setbeamercolor{enumerate item}{fg=black}
+%\setbeamercolor{enumerate subitem}{fg=black}
+%\setbeamercolor{button}{bg=blue,fg=white,}
+\usecolortheme{seahorse}
+
+
+\setbeamersize{text margin left=2em,text margin right=2em} 
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+
+\title{\huge a mini tutorial + my custom template}
+\author{\ding{96} emily case \ding{96}}
+\date{}
+\begin{document}
+
+\begin{frame}
+	\maketitle
+\end{frame}
+
+\begin{transitionframe}
+	\textit{\textbf{huge shout out to Paul Goldsmith-Pinkham, who's beamer slide template provided a wonderful way to learn, as well as the foundation for this template. }}
+\end{transitionframe}
+
+\begin{frame} 
+	\centering 
+	\textbf{\Huge \color{amaranth}did you know that a young child rejects economics as a potential career path every time you don't use the 169 aspect ratio?} \\
+	{\scriptsize (just a fun fact that is totally true.) }
+\end{frame}
+
+\begin{frame}{cuter itemized lists ----------------------------------------------------------------}
+\begin{wideitemize}
+	\item I use Paul's \texttt{wideitemize} environment for better spacing
+	\item I like to use a lot of \textbf{bold words} and \textbf{\color{amaranth}bold, colorful words} in order to emphasize. 
+	\begin{itemize}
+		\item you can define your own colors, I called mine \textcolor{amaranth}{amaranth}
+	\end{itemize} 
+	\item you can, of course, change the stars and diamonds in the preamble. 
+	\item[] occasionally I use itemized lists without any kind of symbol, to make use of the spacing. 
+\end{wideitemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{two-column slide -----------------------------------------------------------------}
+\begin{columns}[T] % align columns
+\begin{column}{.45\textwidth}
+  woohooooooooo look at all the stuff i have going on over here!!!!!!!!!! \\
+  \begin{wideitemize}
+  	\item so 
+  	\item much
+  	\item contentttttt
+  \end{wideitemize}
+\end{column}%
+\hfill%
+\begin{column}{.5\textwidth}
+	WOW it's \emph{\textbf{MORE CONTENT} OVER HERE}
+		\begin{wideitemize}
+			\item[\large \ding{202}] p.s. did you know you can change each individual item symbol? this one is a cute little number 1 \pause
+			\item[\large \ding{203}] boom, another one \pause
+			\item p.p.s., did you know about \texttt{\textbackslash pause} to iteratively display items? 
+		\end{wideitemize} 		
+\end{column}%
+\end{columns}
+\end{frame}
+
+
+\begin{transitionframe}
+	\textbf{\textit{sometimes i want to make an emphasized point.}}
+\end{transitionframe}
+
+\begin{frame}{going above and beyond when typing equations--------------------}
+\only<1-2>{%
+	it takes a long time to format your slides to do what I am about to show you, but I think it's worth it (makes things more readable + you look cool as @\#\%!) \\
+	\pause
+	\bigskip 
+	let's look at a typical equation slide, first...
+}% 
+\only<3>{%
+	my regression equation is
+	\[ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \varepsilon\] 
+	where 
+	\begin{itemize}
+		\item $y$ is the outcome variable 
+		\item $\beta_0$ is the constant 
+		\item $x_1$ is a variable of interest 
+		\item $x_2$ is, you guessed it, another variable 
+		\item \dots and so on. 
+	\end{itemize}
+}%
+\only<4>{%
+	\textbf{lets see what happens when we put some heart and soul into slide creation...}
+}%
+\only<5-10>{%
+	my regression equation is
+	\[ \textcolor<6>{amaranth}{y} = \textcolor<7>{amaranth}{\beta_0} + \beta_1 \textcolor<8>{amaranth}{x_1} + \beta_2 \textcolor<9>{amaranth}{x_2} + \varepsilon\] 
+	where \pause 
+	\begin{itemize}
+		\item<6-> $\color<6>{amaranth} y$ is the outcome variable 
+		\item<7-> $\color<7>{amaranth} \beta_0$ is the constant 
+		\item<8-> $\color<8>{amaranth} x_1$ is a variable of interest 
+		\item<9-> $\color<9>{amaranth} x_2$ is, you guessed it, another variable 
+		\item<10> \dots and so on. 
+	\end{itemize}
+}%
+\only<11>{%
+	BONUS!!!! sometimes it's helpful to use underbrackets to highlight a section of your equation 
+	\[ y = \beta_0 + \underbrace{\beta_1 x_1 + \beta_2 x_2}_{\text{this part has variables}} + \varepsilon \]
+}%
+\end{frame}
+
+\begin{frame}{some notes about what just happened}
+	\begin{enumerate}
+		\item sometimes, I use \texttt{\color{amaranth} \textbackslash only<slidenumbers>\{slide content\}} to have \textbf{multiple slides} in the \textbf{\textit{same} frame}
+		\only<1>{%
+		\begin{wideitemize}
+			\item \textbf{pros:} avoid re-typing your frame title, tex document might look more organized. 
+			\item \textbf{cons:} have to keep track of slide numbers, which is harder to do when using \texttt{\textbackslash pause} or overlays; also does not change the slide numbers in the bottom right corner. 
+		\end{wideitemize}	}%
+		\only<1-2>{%
+		\item I use \texttt{\textbackslash textcolor<slidenumber>\{mycolorname\}\{texttodisplay\}} to only apply a text color on certain slide numbers. 
+		\begin{itemize}
+			\item when the text I want to highlight is trapped within an environment, such as the math-mode dollar signs \$, instead I can use \texttt{\textbackslash color<slidenumber>\{mycolorname\}}
+		\end{itemize}
+		\item finally, instead of using \texttt{\textbackslash pause} I usually will tell itemize directly when to display that item: \texttt{\textbackslash item<6->} means I want this item to be displayed starting on slide 6, and continue being displayed.
+		}% 
+	\end{enumerate}
+\end{frame}
+	
+\end{document}
