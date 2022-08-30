@@ -1,0 +1,101 @@
+\documentclass{article}
+\title{use LuaLaTeX as a calculator to automate question versions}
+\author{emily case}
+\date{}
+
+% general packages %
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\setlength{\parindent}{0pt}
+
+% this is the package of interest!! 
+\usepackage{luacode}
+
+% we will use this command. the argument #1 is the math you want to compute
+\newcommand\mycalc[1]{%
+    \luaexec{ tex.sprint ( string.format( "\%g" , #1 ) )}
+}%
+%       - \luaexec executes 
+%       - tex.sprint prints as a string 
+%       - string.format lets you specify the output format. the one i use automatically guesses significant figures. try "\%.2f" for 2 decimal places. 
+
+\begin{document}
+\maketitle
+% example with no automation:
+suppose you need to create different versions of the following question (and its solution)
+\\\\
+\emph{\textbf{version 1, not automated:} solve for $x$:} $ 2x^2 + 11x - 21 = 0 $\\
+    \textcolor{violet}{
+    \textbf{solution:}
+    \begin{align*}
+        (2x-3)(x+7) = 0 
+        \implies & \begin{cases}
+            2x - 3 = 0 \\
+            x+7 = 0 
+        \end{cases} \\
+        \implies & \begin{cases}
+            x = 1.5 \\
+            x = -7
+        \end{cases}
+    \end{align*}}
+it's probably kind of a pain in the butt to go through and solve the problem over and over again. the good news is LaTeX can do it for you!!! you need to be using LuaLaTeX.
+\\\\
+for this particular problem, it will probably be easiest to start from the factored version of the problem, and have LaTeX compute the numbers that should go in the question. \\
+
+% changeables (this is what you will change to create different versions)
+\newcommand{\aval}{2}
+\newcommand{\bval}{3}
+\newcommand{\cval}{7}
+
+% now use these commands + the \mycalc command we defined in the preamble to calculate the coefficients that are presented in the question as well as the final answer.
+
+% let's do the answer first. we only need to do x1, because the second x value is just the negative of \cval. 
+\newcommand{\xone}{\mycalc{(\bval / \aval)}}     % x1 = 3/2, or aval/bval
+
+% now let's compute the coefficients for the problem a student would actually see.
+\newcommand{\coeffone}{\mycalc{\aval * 1}}
+\newcommand{\coefftwo}{\mycalc{\aval*\cval - 1*\bval}}
+\newcommand{\coeffthree}{\mycalc{\bval*\cval}}
+
+
+\emph{\textbf{version 1, automated:} solve for $x$:} $\coeffone x^2 + \coefftwo x - \coeffthree = 0 $ \\
+    \textcolor{violet}{
+    \textbf{solution:}
+    \begin{align*}
+        (\aval x-\bval)(x+\cval) = 0 
+        \implies & \begin{cases}
+            \aval x - \bval = 0 \\
+            x+\cval = 0 
+        \end{cases} \\
+        \implies & \begin{cases}
+            x = \xone \\
+            x = -\cval
+        \end{cases}
+    \end{align*}}
+
+now that we have automated the calculations, to create different versions we just need to edit the ``changeables'' commands in the tex document! (there's certainly a way to automate this too, but I don't have that figured out yet.)\\\\ let's make another version!\\\\ 
+% change the input values 
+\renewcommand{\aval}{3}
+\renewcommand{\bval}{6}
+\renewcommand{\cval}{2}
+\emph{\textbf{version 2, automated:} solve for $x$:} $\coeffone x^2 + \coefftwo x - \coeffthree = 0 $ \\
+    \textcolor{violet}{
+    \textbf{solution:}\\
+    \begin{align*}
+        (\aval x-\bval)(x+\cval) = 0 
+        \implies & \begin{cases}
+            \aval x - \bval = 0 \\
+            x+\cval = 0 
+        \end{cases} \\
+        \implies & \begin{cases}
+            x = \xone \\
+            x = -\cval
+        \end{cases}
+    \end{align*}}
+
+you can also use functions within \texttt{\textbackslash luaexec}, but they are not the familiar LaTeX commands. for example, say you want to take the square root of 9: (check the tex code)
+\[ \sqrt{9} = \mycalc{math.sqrt(9)}\]
+
+\end{document}
